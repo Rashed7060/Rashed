@@ -1,0 +1,167 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --color-canvas: #F7F8FC;
+  --color-canvas-dark: #0B0E17;
+  --color-heading: #171923;
+  --color-heading-dark: #F7FAFC;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* =========================================================================
+   DYNAMIC PORTFOLIO COLOR THEME SYSTEM
+   ========================================================================= */
+
+/* Default Theme: Royal Sapphire (Modern Professional Navy & Electric Blue) */
+:root,
+html[data-theme="blue"],
+html:not([data-theme]) {
+  --primary-color: #2563EB;
+  --primary-hover: #1D4ED8;
+  --primary-gradient-start: #2563EB;
+  --primary-gradient-end: #3B82F6;
+  --primary-glow: rgba(37, 99, 235, 0.28);
+  --primary-soft-bg: rgba(37, 99, 235, 0.09);
+  --primary-border: rgba(37, 99, 235, 0.22);
+}
+
+/* Emerald Growth (SEO & Performance) */
+html[data-theme="emerald"] {
+  --primary-color: #059669;
+  --primary-hover: #047857;
+  --primary-gradient-start: #10B981;
+  --primary-gradient-end: #059669;
+  --primary-glow: rgba(16, 185, 129, 0.28);
+  --primary-soft-bg: rgba(16, 185, 129, 0.09);
+  --primary-border: rgba(16, 185, 129, 0.22);
+}
+
+/* Electric Violet (AI & Automation Tech) */
+html[data-theme="purple"] {
+  --primary-color: #7C3AED;
+  --primary-hover: #6D28D9;
+  --primary-gradient-start: #8B5CF6;
+  --primary-gradient-end: #EC4899;
+  --primary-glow: rgba(124, 58, 237, 0.28);
+  --primary-soft-bg: rgba(124, 58, 237, 0.09);
+  --primary-border: rgba(124, 58, 237, 0.22);
+}
+
+/* Sunset Amber (Warm Creative) */
+html[data-theme="orange"] {
+  --primary-color: #FF8500;
+  --primary-hover: #FF7700;
+  --primary-gradient-start: #FF8500;
+  --primary-gradient-end: #FFAB45;
+  --primary-glow: rgba(255, 133, 0, 0.28);
+  --primary-soft-bg: rgba(255, 133, 0, 0.09);
+  --primary-border: rgba(255, 133, 0, 0.22);
+}
+
+/* Cyber Cyan (Clean Digital Tech) */
+html[data-theme="cyan"] {
+  --primary-color: #0284C7;
+  --primary-hover: #0369A1;
+  --primary-gradient-start: #06B6D4;
+  --primary-gradient-end: #3B82F6;
+  --primary-glow: rgba(2, 132, 199, 0.28);
+  --primary-soft-bg: rgba(2, 132, 199, 0.09);
+  --primary-border: rgba(2, 132, 199, 0.22);
+}
+
+/* Crimson Rose (Executive Modern) */
+html[data-theme="rose"] {
+  --primary-color: #E11D48;
+  --primary-hover: #BE123C;
+  --primary-gradient-start: #F43F5E;
+  --primary-gradient-end: #FB7185;
+  --primary-glow: rgba(225, 29, 72, 0.28);
+  --primary-soft-bg: rgba(225, 29, 72, 0.09);
+  --primary-border: rgba(225, 29, 72, 0.22);
+}
+
+/* Theme color mappings across all elements */
+.text-\[\#FF8500\],
+.text-orange-500 {
+  color: var(--primary-color) !important;
+}
+
+.bg-\[\#FF8500\],
+.bg-orange-500 {
+  background-color: var(--primary-color) !important;
+}
+
+.hover\:text-\[\#FF8500\]:hover,
+.hover\:text-orange-500:hover {
+  color: var(--primary-color) !important;
+}
+
+.hover\:bg-\[\#FF7700\]:hover,
+.hover\:bg-orange-600:hover {
+  background-color: var(--primary-hover) !important;
+}
+
+/* Gradient buttons & badges */
+.bg-gradient-to-r.from-\[\#FF8500\].to-\[\#FFAB45\],
+.bg-gradient-to-r.from-\[\#FF8500\].to-\[\#FF9E30\],
+.bg-gradient-to-r.from-\[\#FF8500\].to-\[\#FFA800\] {
+  background-image: linear-gradient(135deg, var(--primary-gradient-start), var(--primary-gradient-end)) !important;
+}
+
+.border-\[\#FF8500\],
+.border-orange-500 {
+  border-color: var(--primary-color) !important;
+}
+
+.bg-orange-500\/10,
+.bg-orange-500\/5,
+.bg-orange-50 {
+  background-color: var(--primary-soft-bg) !important;
+}
+
+.border-orange-200,
+.border-orange-100,
+.border-orange-300 {
+  border-color: var(--primary-border) !important;
+}
+
+.shadow-orange-500\/20,
+.shadow-orange-500\/25,
+.shadow-orange-500\/30,
+.shadow-orange-500\/35 {
+  --tw-shadow-color: var(--primary-glow) !important;
+}
+
+.selection\:bg-\[\#FF8500\] *::selection {
+  background-color: var(--primary-color) !important;
+  color: #ffffff !important;
+}
+
+.focus\:ring-\[\#FF8500\]:focus {
+  --tw-ring-color: var(--primary-color) !important;
+}
+
+/* Custom smooth scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
