@@ -1,6 +1,6 @@
 import React from 'react';
 import { Download, Mail, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
-import { PERSONAL_INFO, CONTACT_DATA } from '../data/portfolioData';
+import { useAdmin } from '../context/AdminContext';
 
 interface HeroProps {
   onOpenResumeModal: () => void;
@@ -8,6 +8,7 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenHireModal }) => {
+  const { personalInfo, contactData } = useAdmin();
   const scrollToContact = (e: React.MouseEvent) => {
     e.preventDefault();
     const el = document.getElementById('contact');
@@ -31,27 +32,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenHireModal }
           {/* Left Column: Bio & Calls to Action */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left">
             
-            {/* Social Media Icons row (matching top-left in reference image) */}
+            {/* Social & Freelance Marketplace Icons row */}
             <div className="flex items-center justify-center lg:justify-start gap-3">
-              {/* Instagram */}
-              <a
-                href={CONTACT_DATA.socials.instagram}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Instagram profile"
-                className="w-10 h-10 rounded-full bg-white dark:bg-[#1A1D27] border border-[#E8EAF0] dark:border-[#2D3748] shadow-sm flex items-center justify-center text-[#606575] dark:text-[#9EA3B0] hover:text-[#FF8500] hover:border-orange-200 dark:hover:border-orange-500/30 hover:scale-105 transition-all duration-200"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                </svg>
-              </a>
-
               {/* Facebook */}
               <a
-                href={CONTACT_DATA.socials.facebook}
+                href={contactData.socials.facebook}
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Facebook profile"
+                title="Facebook"
                 className="w-10 h-10 rounded-full bg-white dark:bg-[#1A1D27] border border-[#E8EAF0] dark:border-[#2D3748] shadow-sm flex items-center justify-center text-[#606575] dark:text-[#9EA3B0] hover:text-[#1877F2] hover:border-blue-200 dark:hover:border-blue-500/30 hover:scale-105 transition-all duration-200"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -61,10 +50,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenHireModal }
 
               {/* LinkedIn */}
               <a
-                href={CONTACT_DATA.socials.linkedin}
+                href={contactData.socials.linkedin}
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn profile"
+                title="LinkedIn"
                 className="w-10 h-10 rounded-full bg-white dark:bg-[#1A1D27] border border-[#E8EAF0] dark:border-[#2D3748] shadow-sm flex items-center justify-center text-[#606575] dark:text-[#9EA3B0] hover:text-[#0A66C2] hover:border-blue-200 dark:hover:border-blue-500/30 hover:scale-105 transition-all duration-200"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -72,16 +62,32 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenHireModal }
                 </svg>
               </a>
 
-              {/* GitHub */}
+              {/* Fiverr */}
               <a
-                href={CONTACT_DATA.socials.github}
+                href={contactData.socials.fiverr}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="GitHub profile"
-                className="w-10 h-10 rounded-full bg-white dark:bg-[#1A1D27] border border-[#E8EAF0] dark:border-[#2D3748] shadow-sm flex items-center justify-center text-[#606575] dark:text-[#9EA3B0] hover:text-[#171923] dark:hover:text-white hover:border-slate-400 hover:scale-105 transition-all duration-200"
+                aria-label="Fiverr profile"
+                title="Fiverr"
+                className="w-10 h-10 rounded-full bg-white dark:bg-[#1A1D27] border border-[#E8EAF0] dark:border-[#2D3748] shadow-sm flex items-center justify-center text-[#606575] dark:text-[#9EA3B0] hover:text-[#1DBF73] hover:border-emerald-300 dark:hover:border-emerald-500/40 hover:scale-105 transition-all duration-200"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  <path d="M10.5 7.5c0-1.2.8-2 2-2h1.3V3.2H12c-2.4 0-4 1.6-4 4.1v1.4H6.2v2.4H8v8.7h2.5v-8.7h2.4v-2.4h-2.4V7.5zM15 8.7h2.5v11.1H15V8.7z"/>
+                  <circle cx="16.25" cy="5.6" r="1.45" />
+                </svg>
+              </a>
+
+              {/* Upwork */}
+              <a
+                href={contactData.socials.upwork}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Upwork profile"
+                title="Upwork"
+                className="w-10 h-10 rounded-full bg-white dark:bg-[#1A1D27] border border-[#E8EAF0] dark:border-[#2D3748] shadow-sm flex items-center justify-center text-[#606575] dark:text-[#9EA3B0] hover:text-[#14A800] hover:border-green-300 dark:hover:border-green-500/40 hover:scale-105 transition-all duration-200"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.548-1.405-.002-2.543-1.143-2.545-2.548V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"/>
                 </svg>
               </a>
             </div>
@@ -89,20 +95,20 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenHireModal }
             {/* Main Greeting and Name */}
             <div className="space-y-3">
               <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#171923] dark:text-white leading-[1.15]">
-                Hi, I'm <span className="text-[#171923] dark:text-white">{PERSONAL_INFO.name}</span>
+                Hi, I'm <span className="text-[#171923] dark:text-white">{personalInfo.name}</span>
               </h1>
               
               {/* Professional Title */}
               <div className="inline-block">
                 <span className="text-lg sm:text-xl lg:text-2xl font-semibold bg-gradient-to-r from-[var(--primary-gradient-start)] via-[var(--primary-color)] to-[var(--primary-gradient-end)] bg-clip-text text-transparent">
-                  {PERSONAL_INFO.title}
+                  {personalInfo.title}
                 </span>
               </div>
             </div>
 
             {/* Description */}
             <p className="text-base sm:text-lg text-[#606575] dark:text-[#9EA3B0] max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              {PERSONAL_INFO.tagline}
+              {personalInfo.tagline}
             </p>
 
             {/* CTAs */}
@@ -147,16 +153,18 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal, onOpenHireModal }
             {/* Ambient Radial Glow Ring */}
             <div className="absolute inset-0 bg-gradient-to-tr from-[var(--primary-color)]/25 via-[var(--primary-hover)]/20 to-transparent rounded-full filter blur-3xl transform scale-95 -z-10" />
 
-            {/* Main Portrait Frame (Clean, without extra text overlays) */}
-            <div className="relative w-full max-w-sm sm:max-w-md mx-auto">
-              <div className="relative z-10 rounded-3xl overflow-hidden bg-white dark:bg-[#1A1D27] p-2 border-2 border-white/80 dark:border-[#2D3748] shadow-2xl shadow-orange-500/10">
-                <img
-                  src={PERSONAL_INFO.heroImage}
-                  alt="Md Rashidul Islam - SEO Specialist, WordPress Developer & AI Specialist"
-                  className="w-full h-auto aspect-square object-cover rounded-2xl select-none hover:scale-[1.01] transition-transform duration-300"
-                  loading="eager"
-                  referrerPolicy="no-referrer"
-                />
+            {/* Main Portrait Frame (Clean, full uncropped 3:4 portrait framing) */}
+            <div className="relative w-full max-w-[320px] sm:max-w-[360px] mx-auto">
+              <div className="relative z-10 rounded-3xl overflow-hidden bg-white dark:bg-[#1A1D27] p-2.5 border-2 border-white/80 dark:border-[#2D3748] shadow-2xl shadow-orange-500/10">
+                <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden bg-white">
+                  <img
+                    src={personalInfo.heroImage}
+                    alt="Md Rashidul Islam - SEO Specialist, WordPress Developer & AI Specialist"
+                    className="w-full h-full object-cover object-top select-none hover:scale-[1.01] transition-transform duration-300"
+                    loading="eager"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
               </div>
             </div>
           </div>

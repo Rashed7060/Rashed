@@ -7,6 +7,124 @@ import {
 } from 'lucide-react';
 import { AddSkillModal } from './AddSkillModal';
 
+const SEO_FEATURES = [
+  'On-Page SEO',
+  'Off-Page SEO',
+  'Technical SEO',
+  'Local SEO',
+  'Keyword Research',
+  'Competitor Analysis',
+  'Website SEO Audit',
+  'WordPress SEO',
+  'WooCommerce SEO',
+  'E-commerce SEO',
+  'Content Optimization',
+  'Backlink Building',
+  'Google Search Console Setup',
+  'Google Analytics Setup',
+  'Image SEO Optimization',
+  'Website Speed Optimization',
+  'SEO Strategy & Planning',
+  'Blog SEO',
+];
+
+const AI_WEB_DEV_FEATURES = [
+  'Website Redesign',
+  'Website Clone / Recreation',
+  'Responsive Website Design',
+  'Custom Website Development',
+  'AI SaaS Website',
+  'Booking & Appointment Website',
+  'Membership Website',
+  'Blog & News Website',
+  'Affiliate Marketing Website',
+  'Directory Website',
+  'Web Application Development',
+  'Admin Dashboard Development',
+  'API Integration',
+  'Database Integration',
+  'Payment Gateway Integration',
+  'Website Bug Fixing',
+];
+
+const WORDPRESS_FEATURES = [
+  'Custom WordPress Theme Development',
+  'Custom Plugin Development',
+  'Headless WordPress Architecture',
+  'WordPress REST API Integration',
+  'Third-Party API Integration',
+  'Membership & Subscription System',
+  'LMS Website Development',
+  'Multi-vendor Marketplace Development',
+  'Multilingual Website Development',
+  'Custom Admin Dashboard',
+  'Website Security & Maintenance',
+  'WordPress Performance Optimization',
+];
+
+const DATA_ENTRY_FEATURES = [
+  'Data Entry',
+  'Microsoft Excel',
+  'Google Sheets',
+  'Web Research',
+  'Lead Generation',
+  'Data Cleaning',
+  'Copy Paste',
+  'PDF Conversion',
+  'CRM Management',
+  'Database Management',
+];
+
+const AI_AUTOMATION_FEATURES = [
+  'AI Automation',
+  'Workflow Automation',
+  'AI Agent Development',
+  'Chatbot Development',
+  'Zapier Automation',
+  'Make.com Automation',
+  'n8n Workflow',
+  'API Integration',
+  'CRM Automation',
+  'Email Automation',
+  'Lead Generation Automation',
+  'OpenAI API Integration',
+];
+
+const AI_IMAGE_FEATURES = [
+  'AI Image Generation',
+  'Prompt Engineering',
+  'AI Prompt Writing',
+  'Midjourney',
+  'ChatGPT Image Generation',
+  'Google Gemini',
+  'Adobe Firefly',
+  'Leonardo AI',
+  'AI Photo Editing',
+  'AI Product Photography',
+  'AI Character Design',
+  'Digital Art Creation',
+  'AI Image Enhancement',
+  'Creative Visual Design',
+];
+
+const UI_UX_FEATURES = [
+  'UI Design',
+  'UX Design',
+  'Figma',
+  'Website Design',
+  'Mobile App Design',
+  'Wireframing',
+  'Prototyping',
+  'Responsive Design',
+  'Landing Page Design',
+  'Dashboard Design',
+  'User Research',
+  'User Flow Design',
+  'Design Systems',
+  'Visual Design',
+  'Website Redesign',
+];
+
 export const Skills: React.FC = () => {
   // Load skills from localStorage or fallback to defaults
   const [skills, setSkills] = useState<Skill[]>(() => {
@@ -16,12 +134,111 @@ export const Skills: React.FC = () => {
         try {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            return parsed.map((s) => {
-              if (s.id === 'seo-technical' || s.name === 'Technical & On-Page SEO') {
-                return { ...s, name: 'SEO (Search Engine Optimization)' };
+            const mapped = parsed.map((s) => {
+              if (
+                s.name.toLowerCase().includes('video') ||
+                s.id === 'ai-generate-video' ||
+                s.id === 'ads-video'
+              ) {
+                return {
+                  ...s,
+                  name: 'AI Generate Video',
+                  category: 'ai' as const,
+                  iconName: s.iconName === 'trending-up' ? 'video' : (s.iconName || 'video'),
+                  description: 'Generative AI video creation, commercial ad prompts, character motion synthesis, and engaging multimedia marketing content.',
+                  features: [
+                    'Product Ads Video',
+                    'Cinematic Music Video',
+                    'Motion Graphics Video',
+                    'YouTube Video Ads',
+                    'Social Media Ads Video',
+                  ],
+                };
+              }
+              if (
+                s.id === 'seo-technical' ||
+                s.name === 'Technical & On-Page SEO' ||
+                s.name === 'SEO (Search Engine Optimization)' ||
+                s.name.toLowerCase().includes('search engine optimization')
+              ) {
+                return {
+                  ...s,
+                  name: 'SEO (Search Engine Optimization)',
+                  features: SEO_FEATURES,
+                };
+              }
+              if (
+                s.id === 'ai-web-dev' ||
+                s.name === 'AI Website Development' ||
+                s.name.toLowerCase().includes('ai website')
+              ) {
+                return {
+                  ...s,
+                  name: 'AI Website Development',
+                  features: AI_WEB_DEV_FEATURES,
+                };
+              }
+              if (
+                s.id === 'wordpress' ||
+                s.name.toLowerCase().includes('wordpress')
+              ) {
+                return {
+                  ...s,
+                  features: WORDPRESS_FEATURES,
+                };
+              }
+              if (
+                s.id === 'data-entry-services' ||
+                s.name.toLowerCase().includes('data entry')
+              ) {
+                return {
+                  ...s,
+                  name: 'Data Entry Services',
+                  features: DATA_ENTRY_FEATURES,
+                };
+              }
+              if (
+                s.id === 'ai-automation' ||
+                s.name.toLowerCase().includes('ai automation')
+              ) {
+                return {
+                  ...s,
+                  features: AI_AUTOMATION_FEATURES,
+                };
+              }
+              if (
+                s.id === 'ai-generation' ||
+                s.name.toLowerCase().includes('ai image')
+              ) {
+                return {
+                  ...s,
+                  features: AI_IMAGE_FEATURES,
+                };
+              }
+              if (
+                s.id === 'branding-design' ||
+                s.name.toLowerCase().includes('ui/ux') ||
+                s.name.toLowerCase().includes('visual design')
+              ) {
+                return {
+                  ...s,
+                  features: UI_UX_FEATURES,
+                };
               }
               return s;
             });
+
+            const hasDataEntry = mapped.some(
+              (s) => s.id === 'data-entry-services' || s.name.toLowerCase().includes('data entry')
+            );
+            if (!hasDataEntry && !localStorage.getItem('portfolio_data_entry_seeded')) {
+              const defaultDataEntry = DEFAULT_SKILLS.find((s) => s.id === 'data-entry-services');
+              if (defaultDataEntry) {
+                localStorage.setItem('portfolio_data_entry_seeded', 'true');
+                return [...mapped, defaultDataEntry];
+              }
+            }
+            return mapped;
           }
         } catch (e) {
           console.error('Error parsing stored skills:', e);
@@ -163,6 +380,20 @@ export const Skills: React.FC = () => {
         return (
           <div className="w-8 h-8 rounded-lg bg-yellow-500/10 text-amber-500 flex items-center justify-center font-bold text-xs">
             ⚡
+          </div>
+        );
+      case 'video':
+      case 'film':
+        return (
+          <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-xs">
+            🎬
+          </div>
+        );
+      case 'database':
+      case 'spreadsheet':
+        return (
+          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-xs">
+            📊
           </div>
         );
       default:
@@ -388,6 +619,29 @@ export const Skills: React.FC = () => {
                   </div>
                 </div>
 
+                {/* Specialized sub-capabilities / tags */}
+                {skill.features && skill.features.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {skill.features.slice(0, 3).map((feat, idx) => (
+                      <span
+                        key={idx}
+                        className={`text-[10px] px-2 py-0.5 rounded-md font-medium truncate max-w-[130px] ${
+                          skill.category === 'ai'
+                            ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400'
+                            : 'bg-orange-500/10 text-[#FF8500]'
+                        }`}
+                      >
+                        {feat}
+                      </span>
+                    ))}
+                    {skill.features.length > 3 && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-medium">
+                        +{skill.features.length - 3} more
+                      </span>
+                    )}
+                  </div>
+                )}
+
                 {/* Footer prompt */}
                 <div className="pt-1 flex items-center justify-between text-[11px] text-[#606575] dark:text-[#9EA3B0] border-t border-slate-100 dark:border-slate-800/80">
                   <span className="capitalize">{skill.category} Tool</span>
@@ -453,7 +707,7 @@ export const Skills: React.FC = () => {
           onClick={() => setSelectedSkill(null)}
         >
           <div
-            className="bg-white dark:bg-[#1A1D27] rounded-3xl max-w-md w-full p-6 shadow-2xl border border-[#E8EAF0] dark:border-[#2D3748] space-y-5"
+            className="bg-white dark:bg-[#1A1D27] rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-[#E8EAF0] dark:border-[#2D3748] space-y-5 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between">
@@ -496,6 +750,59 @@ export const Skills: React.FC = () => {
                   />
                 </div>
               </div>
+
+              {/* Specialized Deliverables / Sub-Skills */}
+              {(selectedSkill.features || selectedSkill.name.toLowerCase().includes('video')) && (
+                <div className="space-y-2.5 pt-2">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-[#171923] dark:text-white uppercase tracking-wider">
+                    <Sparkles className="w-3.5 h-3.5 text-[#FF8500]" />
+                    <span>
+                      {selectedSkill.id === 'ai-generate-video' || selectedSkill.name.toLowerCase().includes('video')
+                        ? 'Included Video Deliverables:'
+                        : selectedSkill.id === 'seo-technical' || selectedSkill.name.toLowerCase().includes('seo')
+                        ? 'Included SEO Skills & Services:'
+                        : selectedSkill.id === 'ai-web-dev' || selectedSkill.name.toLowerCase().includes('ai website')
+                        ? 'Included AI & Website Solutions:'
+                        : selectedSkill.id === 'wordpress' || selectedSkill.name.toLowerCase().includes('wordpress')
+                        ? 'Included WordPress & CMS Capabilities:'
+                        : selectedSkill.id === 'data-entry-services' || selectedSkill.name.toLowerCase().includes('data entry')
+                        ? 'Included Data Entry Services:'
+                        : selectedSkill.id === 'ai-automation' || selectedSkill.name.toLowerCase().includes('ai automation')
+                        ? 'Included AI & Workflow Automations:'
+                        : selectedSkill.id === 'ai-generation' || selectedSkill.name.toLowerCase().includes('ai image')
+                        ? 'Included AI Image & Prompt Services:'
+                        : selectedSkill.id === 'branding-design' || selectedSkill.name.toLowerCase().includes('ui/ux')
+                        ? 'Included UI/UX & Visual Design Skills:'
+                        : 'Included Capabilities:'}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {(selectedSkill.features || [
+                      'Product Ads Video',
+                      'Cinematic Music Video',
+                      'Motion Graphics Video',
+                      'YouTube Video Ads',
+                      'Social Media Ads Video',
+                    ]).map((item, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 text-xs text-[#171923] dark:text-white shadow-2xs font-medium"
+                      >
+                        <span
+                          className={`w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold shrink-0 ${
+                            selectedSkill.category === 'ai'
+                              ? 'bg-purple-500/15 text-purple-600 dark:text-purple-400'
+                              : 'bg-orange-500/15 text-[#FF8500]'
+                          }`}
+                        >
+                          {idx + 1}
+                        </span>
+                        <span className="truncate" title={item}>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="pt-2 flex items-center justify-between border-t border-[#E8EAF0] dark:border-[#2D3748]">

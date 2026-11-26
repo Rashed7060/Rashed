@@ -34,6 +34,8 @@ const ICON_OPTIONS = [
   { id: 'bot', label: 'AI Bot', symbol: 'AI' },
   { id: 'cpu', label: 'Automation', symbol: '⚙️' },
   { id: 'zap', label: 'Speed/Vitals', symbol: '⚡' },
+  { id: 'video', label: 'AI Video', symbol: '🎬' },
+  { id: 'database', label: 'Data Entry', symbol: '📊' },
 ];
 
 export const AddSkillModal: React.FC<AddSkillModalProps> = ({

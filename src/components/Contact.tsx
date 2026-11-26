@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Clock, Send, Check, Copy, Sparkles, MessageSquare, ExternalLink } from 'lucide-react';
-import { CONTACT_DATA } from '../data/portfolioData';
+import { useAdmin } from '../context/AdminContext';
 
 const PROJECT_OPTIONS = [
   'WordPress Website Development',
@@ -9,10 +9,12 @@ const PROJECT_OPTIONS = [
   'Website Speed & Core Web Vitals',
   'AI Integration & Automation',
   'Custom Web Development & Redesign',
+  'Data Entry Services',
   'Other Consultation',
 ];
 
 export const Contact: React.FC = () => {
+  const { contactData } = useAdmin();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -36,7 +38,7 @@ export const Contact: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const cleanPhone = CONTACT_DATA.phone.replace(/[^0-9]/g, '');
+    const cleanPhone = contactData.phone.replace(/[^0-9]/g, '');
 
     const whatsappMessage = 
 `*New Project Inquiry from Portfolio* 🚀
@@ -50,7 +52,7 @@ export const Contact: React.FC = () => {
 ${formData.message.trim()}
 
 ------------------------------
-Sent to Md Rashidul Islam (${CONTACT_DATA.phone})`;
+Sent to Md Rashidul Islam (${contactData.phone})`;
 
     const encodedText = encodeURIComponent(whatsappMessage);
     const waUrl = `https://wa.me/${cleanPhone}?text=${encodedText}`;
@@ -109,16 +111,16 @@ Sent to Md Rashidul Islam (${CONTACT_DATA.phone})`;
                       Email Address
                     </span>
                     <a
-                      href={`mailto:${CONTACT_DATA.email}`}
+                      href={`mailto:${contactData.email}`}
                       className="block text-sm font-semibold text-[#171923] dark:text-white hover:text-[#FF8500] transition-colors break-all"
                     >
-                      {CONTACT_DATA.email}
+                      {contactData.email}
                     </a>
                   </div>
                 </div>
 
                 <button
-                  onClick={() => handleCopy(CONTACT_DATA.email, 'email')}
+                  onClick={() => handleCopy(contactData.email, 'email')}
                   className="p-2 rounded-lg text-slate-400 hover:text-[#FF8500] hover:bg-white dark:hover:bg-slate-700 transition-colors cursor-pointer"
                   title="Copy email address"
                 >
@@ -137,16 +139,16 @@ Sent to Md Rashidul Islam (${CONTACT_DATA.phone})`;
                       Phone / WhatsApp
                     </span>
                     <a
-                      href={`tel:${CONTACT_DATA.phone}`}
+                      href={`tel:${contactData.phone}`}
                       className="block text-sm font-semibold text-[#171923] dark:text-white hover:text-[#FF8500] transition-colors"
                     >
-                      {CONTACT_DATA.phone}
+                      {contactData.phone}
                     </a>
                   </div>
                 </div>
 
                 <button
-                  onClick={() => handleCopy(CONTACT_DATA.phone, 'phone')}
+                  onClick={() => handleCopy(contactData.phone, 'phone')}
                   className="p-2 rounded-lg text-slate-400 hover:text-[#FF8500] hover:bg-white dark:hover:bg-slate-700 transition-colors cursor-pointer"
                   title="Copy phone number"
                 >
@@ -162,7 +164,7 @@ Sent to Md Rashidul Islam (${CONTACT_DATA.phone})`;
                 <div>
                   <span className="text-xs text-[#606575] dark:text-[#9EA3B0]">Location</span>
                   <p className="text-sm font-semibold text-[#171923] dark:text-white">
-                    {CONTACT_DATA.location}
+                    {contactData.location}
                   </p>
                 </div>
               </div>
@@ -175,7 +177,7 @@ Sent to Md Rashidul Islam (${CONTACT_DATA.phone})`;
                 <div>
                   <span className="text-xs text-[#606575] dark:text-[#9EA3B0]">Working Status</span>
                   <p className="text-sm font-semibold text-[#171923] dark:text-white">
-                    {CONTACT_DATA.availability}
+                    {contactData.availability}
                   </p>
                 </div>
               </div>
@@ -202,7 +204,7 @@ Sent to Md Rashidul Islam (${CONTACT_DATA.phone})`;
                 </span>
               </div>
               <p className="text-sm text-[#606575] dark:text-[#9EA3B0] mb-6">
-                Fill in your project overview below. When you send, it directly opens WhatsApp to <strong>{CONTACT_DATA.phone}</strong> with your message pre-formatted.
+                Fill in your project overview below. When you send, it directly opens WhatsApp to <strong>{contactData.phone}</strong> with your message pre-formatted.
               </p>
 
               {submitted && (
@@ -216,7 +218,7 @@ Sent to Md Rashidul Islam (${CONTACT_DATA.phone})`;
                         WhatsApp Message Prepared!
                       </div>
                       <div className="text-xs sm:text-sm text-emerald-700 dark:text-emerald-300 mt-0.5">
-                        Your project inquiry has been formatted for <strong>Md Rashidul Islam ({CONTACT_DATA.phone})</strong>. If WhatsApp did not open automatically, click below:
+                        Your project inquiry has been formatted for <strong>Md Rashidul Islam ({contactData.phone})</strong>. If WhatsApp did not open automatically, click below:
                       </div>
                     </div>
                   </div>
@@ -338,12 +340,12 @@ Sent to Md Rashidul Islam (${CONTACT_DATA.phone})`;
                   <div className="flex items-center justify-center gap-2 text-xs text-[#606575] dark:text-[#9EA3B0]">
                     <span>Or direct WhatsApp SMS:</span>
                     <a
-                      href={`https://wa.me/${CONTACT_DATA.phone.replace(/[^0-9]/g, '')}`}
+                      href={`https://wa.me/${contactData.phone.replace(/[^0-9]/g, '')}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
                     >
-                      <span>{CONTACT_DATA.phone}</span>
+                      <span>{contactData.phone}</span>
                       <ExternalLink className="w-3 h-3" />
                     </a>
                   </div>

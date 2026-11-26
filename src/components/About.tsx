@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { ArrowRight, Sparkles, Check, Heart, Award, Code, Palette, Laptop } from 'lucide-react';
-import { PERSONAL_INFO, STATS } from '../data/portfolioData';
+import { useAdmin } from '../context/AdminContext';
 
 interface AboutProps {
   onOpenHireModal: () => void;
 }
 
 export const About: React.FC<AboutProps> = ({ onOpenHireModal }) => {
+  const { personalInfo, stats } = useAdmin();
   const [showDetailsModal, setShowDetailsModal] = useState(false);
 
   return (
@@ -33,14 +34,16 @@ export const About: React.FC<AboutProps> = ({ onOpenHireModal }) => {
               </div>
 
               {/* Professional Portrait Image */}
-              <div className="relative z-10 w-full max-w-xs sm:max-w-sm rounded-3xl overflow-hidden bg-white dark:bg-[#1A1D27] p-2 border-2 border-white/80 dark:border-[#2D3748] shadow-2xl shadow-orange-500/10">
-                <img
-                  src={PERSONAL_INFO.aboutImage}
-                  alt="Md Rashidul Islam - SEO Specialist & WordPress Developer"
-                  className="w-full h-auto aspect-square object-cover rounded-2xl select-none hover:scale-[1.01] transition-transform duration-300"
-                  loading="lazy"
-                  referrerPolicy="no-referrer"
-                />
+              <div className="relative z-10 w-full max-w-[300px] sm:max-w-[340px] rounded-3xl overflow-hidden bg-white dark:bg-[#1A1D27] p-2.5 border-2 border-white/80 dark:border-[#2D3748] shadow-2xl shadow-orange-500/10">
+                <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden bg-white">
+                  <img
+                    src={personalInfo.aboutImage}
+                    alt="Md Rashidul Islam - SEO Specialist & WordPress Developer"
+                    className="w-full h-full object-cover object-top select-none hover:scale-[1.01] transition-transform duration-300"
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
               </div>
 
             </div>
@@ -60,13 +63,13 @@ export const About: React.FC<AboutProps> = ({ onOpenHireModal }) => {
             {/* Description Text (card with soft background as in reference image) */}
             <div className="p-6 sm:p-7 rounded-2xl bg-white/80 dark:bg-[#1A1D27]/80 border border-[#E8EAF0] dark:border-[#2D3748] shadow-sm">
               <p className="text-base sm:text-lg text-[#606575] dark:text-[#9EA3B0] leading-relaxed">
-                {PERSONAL_INFO.aboutDescription}
+                {personalInfo.aboutDescription}
               </p>
             </div>
 
             {/* Three Achievement Statistics */}
             <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-2">
-              {STATS.map((stat, idx) => (
+              {stats.map((stat, idx) => (
                 <div
                   key={idx}
                   className="p-3 sm:p-4 rounded-xl bg-white dark:bg-[#1A1D27] border border-[#E8EAF0] dark:border-[#2D3748] shadow-sm text-center group hover:border-orange-300 dark:hover:border-orange-500/30 transition-all duration-200"

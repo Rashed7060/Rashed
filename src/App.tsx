@@ -10,8 +10,15 @@ import { HireModal } from './components/HireModal';
 import { ResumeModal } from './components/ResumeModal';
 import { ReferenceModal } from './components/ReferenceModal';
 import { WhatsAppFloatingButton } from './components/WhatsAppFloatingButton';
+import { AdminProvider, useAdmin } from './context/AdminContext';
+import { AdminLoginModal } from './components/AdminLoginModal';
+import { AdminPanelModal } from './components/AdminPanelModal';
 
-export default function App() {
+function PortfolioContent() {
+  const { isAuthenticated } = useAdmin();
+  const [adminLoginOpen, setAdminLoginOpen] = useState(false);
+  const [adminPanelOpen, setAdminPanelOpen] = useState(false);
+
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('theme');
@@ -64,15 +71,25 @@ export default function App() {
     setSelectedServiceForHire(undefined);
   };
 
+  const handleOpenAdmin = () => {
+    if (isAuthenticated) {
+      setAdminPanelOpen(true);
+    } else {
+      setAdminLoginOpen(true);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#F7F8FC] dark:bg-[#0B0E17] text-[#606575] dark:text-[#9EA3B0] transition-colors duration-200 flex flex-col justify-between selection:bg-[#FF8500] selection:text-white">
-      {/* Floating Center Navbar */}
+      {/* Floating Center Navbar with Admin Button right after Hire Me */}
       <Navbar
         darkMode={darkMode}
         onToggleDarkMode={handleToggleDarkMode}
         colorTheme={colorTheme}
         onSelectColorTheme={setColorTheme}
         onOpenHireModal={handleOpenHireModal}
+        onOpenAdmin={handleOpenAdmin}
+        isAdminAuthenticated={isAuthenticated}
       />
 
       {/* Main Content Sections */}
@@ -111,11 +128,34 @@ export default function App() {
         onClose={() => setResumeModalOpen(false)}
       />
 
+      {/* Admin Login & Control Panel Modals */}
+      <AdminLoginModal
+        isOpen={adminLoginOpen}
+        onClose={() => setAdminLoginOpen(false)}
+        onSuccess={() => {
+          setAdminLoginOpen(false);
+          setAdminPanelOpen(true);
+        }}
+      />
+
+      <AdminPanelModal
+        isOpen={adminPanelOpen}
+        onClose={() => setAdminPanelOpen(false)}
+      />
+
       {/* Floating WhatsApp Quick Connect */}
       <WhatsAppFloatingButton />
 
       {/* Reference comparison widget */}
       <ReferenceModal />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AdminProvider>
+      <PortfolioContent />
+    </AdminProvider>
   );
 }

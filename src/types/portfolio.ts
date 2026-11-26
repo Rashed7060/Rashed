@@ -7,6 +7,7 @@ export interface Skill {
   iconName: string;
   experienceYears?: string;
   description: string;
+  features?: string[];
 }
 
 export interface Service {
@@ -22,10 +23,13 @@ export interface Service {
 export interface Project {
   id: string;
   title: string;
-  category: 'wordpress' | 'design' | 'ai' | 'landing';
+  category: 'wordpress' | 'design' | 'ai' | 'landing' | 'video';
   categoryLabel: string;
   description: string;
   imageUrl: string;
+  mediaType?: 'image' | 'video';
+  videoUrl?: string;
+  videoFileName?: string;
   tags: string[];
   client: string;
   year: string;
@@ -52,9 +56,11 @@ export interface ContactInfo {
   availability: string;
   socials: {
     facebook: string;
-    instagram: string;
     linkedin: string;
-    github: string;
+    fiverr: string;
+    upwork: string;
+    instagram?: string;
+    github?: string;
     youtube?: string;
   };
 }

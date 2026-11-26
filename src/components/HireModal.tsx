@@ -9,6 +9,7 @@ const PROJECT_OPTIONS = [
   'Website Speed & Core Web Vitals',
   'AI Integration & Automation',
   'Custom Web Development & Redesign',
+  'Data Entry Services',
   'Other Inquiry',
 ];
 

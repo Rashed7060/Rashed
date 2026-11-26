@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Printer, Download, Mail, Phone, MapPin, Globe, CheckCircle2 } from 'lucide-react';
-import { PERSONAL_INFO, CONTACT_DATA, SKILLS } from '../data/portfolioData';
+import { SKILLS } from '../data/portfolioData';
+import { useAdmin } from '../context/AdminContext';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface ResumeModalProps {
 }
 
 export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
+  const { personalInfo, contactData } = useAdmin();
   if (!isOpen) return null;
 
   const handlePrint = () => {
@@ -54,23 +56,23 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           {/* Header */}
           <div className="space-y-2 border-b border-slate-200 dark:border-slate-800 pb-5">
             <h2 className="font-heading text-3xl font-bold tracking-tight text-[#171923] dark:text-white">
-              {PERSONAL_INFO.name}
+              {personalInfo.name}
             </h2>
             <p className="text-base font-semibold text-[#FF8500]">
-              {PERSONAL_INFO.title}
+              {personalInfo.title}
             </p>
             <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-[#606575] dark:text-[#9EA3B0] pt-1">
               <span className="flex items-center gap-1">
                 <Mail className="w-3.5 h-3.5 text-[#FF8500]" />
-                {CONTACT_DATA.email}
+                {contactData.email}
               </span>
               <span className="flex items-center gap-1">
                 <Phone className="w-3.5 h-3.5 text-[#FF8500]" />
-                {CONTACT_DATA.phone}
+                {contactData.phone}
               </span>
               <span className="flex items-center gap-1">
                 <MapPin className="w-3.5 h-3.5 text-[#FF8500]" />
-                {CONTACT_DATA.location}
+                {contactData.location}
               </span>
             </div>
           </div>
@@ -81,7 +83,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               Professional Summary
             </h3>
             <p className="text-xs sm:text-sm text-[#606575] dark:text-[#9EA3B0] leading-relaxed">
-              {PERSONAL_INFO.bio} Specialized in technical and on-page SEO, Google Search Console optimization, schema markup, AI website development, and prompt-driven generative automation pipelines.
+              {personalInfo.bio} Specialized in technical and on-page SEO, Google Search Console optimization, schema markup, AI website development, and prompt-driven generative automation pipelines.
             </p>
           </div>
 
@@ -100,6 +102,17 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                       const parsed = JSON.parse(saved);
                       if (Array.isArray(parsed) && parsed.length > 0) {
                         list = parsed.map((s) => {
+                          if (
+                            s.name.toLowerCase().includes('ads video') ||
+                            s.name.toLowerCase().includes('ad video') ||
+                            s.id === 'ads-video'
+                          ) {
+                            return {
+                              ...s,
+                              name: 'AI Generate Video',
+                              category: 'ai' as const,
+                            };
+                          }
                           if (s.id === 'seo-technical' || s.name === 'Technical & On-Page SEO') {
                             return { ...s, name: 'SEO (Search Engine Optimization)' };
                           }

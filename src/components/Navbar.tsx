@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Menu, X, ArrowUpRight, Sparkles, Palette } from 'lucide-react';
+import { Sun, Moon, Menu, X, ArrowUpRight, Sparkles, Palette, Lock, ShieldCheck } from 'lucide-react';
 import { ThemeSelector, THEME_OPTIONS } from './ThemeSelector';
 
 interface NavbarProps {
@@ -8,6 +8,8 @@ interface NavbarProps {
   colorTheme: string;
   onSelectColorTheme: (themeId: string) => void;
   onOpenHireModal: (serviceName?: string) => void;
+  onOpenAdmin: () => void;
+  isAdminAuthenticated: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -16,6 +18,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   colorTheme,
   onSelectColorTheme,
   onOpenHireModal,
+  onOpenAdmin,
+  isAdminAuthenticated,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -125,6 +129,30 @@ export const Navbar: React.FC<NavbarProps> = ({
               <ArrowUpRight className="w-3.5 h-3.5 opacity-90" />
             </button>
 
+            {/* Admin Panel Button (Right after Hire Me, matching user screenshot) */}
+            <button
+              onClick={onOpenAdmin}
+              aria-label="Admin Control Panel"
+              title={isAdminAuthenticated ? 'Open Admin Panel' : 'Admin Login'}
+              className={`px-2.5 sm:px-3 py-2 rounded-full text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 shrink-0 cursor-pointer ${
+                isAdminAuthenticated
+                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 shadow-xs'
+                  : 'bg-white dark:bg-[#1A1D27] text-[#606575] dark:text-[#9EA3B0] hover:text-[#FF8500] hover:border-orange-300 dark:hover:border-orange-500/40 border border-[#E8EAF0] dark:border-[#2D3748] shadow-xs'
+              }`}
+            >
+              {isAdminAuthenticated ? (
+                <>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                  <span className="hidden sm:inline">Admin</span>
+                </>
+              ) : (
+                <>
+                  <Lock className="w-3.5 h-3.5 text-[#FF8500] shrink-0" />
+                  <span className="hidden sm:inline">Admin</span>
+                </>
+              )}
+            </button>
+
             {/* Mobile Menu Hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -203,6 +231,24 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 {darkMode ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5" />}
                 <span>{darkMode ? 'Light' : 'Dark'}</span>
+              </button>
+            </div>
+
+            {/* Admin Panel on Mobile */}
+            <div className="pt-2 border-t border-[#E8EAF0] dark:border-[#2D3748]">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenAdmin();
+                }}
+                className={`w-full py-2.5 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
+                  isAdminAuthenticated
+                    ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+                    : 'bg-slate-100 dark:bg-slate-800 text-[#171923] dark:text-white'
+                }`}
+              >
+                <Lock className="w-3.5 h-3.5 text-[#FF8500]" />
+                <span>{isAdminAuthenticated ? 'Open Admin Control Panel' : 'Admin Login Panel'}</span>
               </button>
             </div>
           </div>

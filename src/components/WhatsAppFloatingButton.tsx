@@ -1,11 +1,12 @@
 import React from 'react';
 import { MessageSquare } from 'lucide-react';
-import { CONTACT_DATA } from '../data/portfolioData';
+import { useAdmin } from '../context/AdminContext';
 
 export const WhatsAppFloatingButton: React.FC = () => {
-  const cleanPhone = CONTACT_DATA.phone.replace(/[^0-9]/g, '');
+  const { contactData, personalInfo } = useAdmin();
+  const cleanPhone = contactData.phone.replace(/[^0-9]/g, '');
   const defaultMessage = encodeURIComponent(
-    'Hello Md Rashidul Islam! I saw your portfolio and would like to discuss a project with you.'
+    `Hello ${personalInfo.name}! I saw your portfolio and would like to discuss a project with you.`
   );
   const waUrl = `https://wa.me/${cleanPhone}?text=${defaultMessage}`;
 
@@ -15,7 +16,7 @@ export const WhatsAppFloatingButton: React.FC = () => {
       <div className="hidden sm:block opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none mr-3 bg-white dark:bg-[#1A1D27] text-[#171923] dark:text-white px-3.5 py-2 rounded-xl text-xs font-semibold shadow-xl border border-slate-200 dark:border-slate-700 whitespace-nowrap">
         <span>Chat on WhatsApp</span>
         <span className="block text-[10px] text-emerald-600 dark:text-emerald-400 font-normal">
-          {CONTACT_DATA.phone}
+          {contactData.phone}
         </span>
       </div>
 
